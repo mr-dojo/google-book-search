@@ -14,7 +14,13 @@ export default class App extends React.Component {
     }
   }
 
-   componentDidMount() {
+  updateQuery = query => {
+    this.setState({query},()=>{
+      this.search();
+    });
+  }
+
+  search = () => {
     const query = this.state.query
     const APIkey = 'AIzaSyBGdKu7x3YcbexK45zPqbHg5MCbtvBkIdM'
     const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${APIkey}`;
@@ -40,6 +46,10 @@ export default class App extends React.Component {
       });
   }
 
+   componentDidMount() {
+    this.search()
+  }
+
   render() {
     
     const listOfBooks = this.state.showBooks 
@@ -50,7 +60,10 @@ export default class App extends React.Component {
         <header className="App-header">
           <h1>Google Book Search</h1>
         </header>
-        <FilterBox booksData={this.state.books}/>
+        <FilterBox 
+          handleSearch={this.updateQuery}
+          booksData={this.state.books}
+        />
         {listOfBooks}
       </div>
     );

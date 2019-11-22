@@ -7,7 +7,9 @@ export default class FilterBox extends Component {
   render() {
     return (
       <section className="filter-box">
-        <Search />
+        <Search 
+          handleSearch={this.props.handleSearch}
+        />
         <TypeFilter />
       </section>
     )
