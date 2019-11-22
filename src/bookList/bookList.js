@@ -4,7 +4,7 @@ import './bookList.css';
 
 export default class BookList extends Component {
   render() {
-    const books = this.props.bookArray.map(book => {
+    const books = this.props.booksData.map(book => {
       return (
         <Book bookData={book} />
       )
