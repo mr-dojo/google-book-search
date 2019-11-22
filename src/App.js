@@ -29,7 +29,7 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          books: data.items,
+          books: data.items.map(item => item.volumeInfo),
           showBooks: true,
         });
       })
@@ -43,14 +43,14 @@ export default class App extends React.Component {
   render() {
     
     const listOfBooks = this.state.showBooks 
-      ? <BookList books={this.state.books} /> : null
+      ? <BookList bookArray={this.state.books} /> : null
     
     return (
       <div className="App">
         <header className="App-header">
           <h1>Google Book Search</h1>
         </header>
-        <FilterBox books={this.state.books}/>
+        <FilterBox bookArray={this.state.books}/>
         {listOfBooks}
       </div>
     );
