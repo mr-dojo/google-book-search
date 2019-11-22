@@ -18,13 +18,17 @@ export default class Book extends Component {
     const authors = this.props.bookData.volumeInfo.authors.map(author => author)
 
     return (
-      <div className="book">
+      <li className="book-li">
         <h2>{this.props.bookData.volumeInfo.title}</h2>
-        {/* Add photo this.props.bookData.volumeInfo.imageLinks.thumbnail */}
-        <p>Author: {authors} </p>
-        <p>Price: {this.checkPrice(this.props.bookData.saleInfo)}</p>
-        <p>{this.props.bookData.volumeInfo.description}</p>
-      </div>
+        <div className="book-container">
+          <img src={this.props.bookData.volumeInfo.imageLinks.thumbnail} alt={this.props.bookData.volumeInfo.title}/>
+          <div className="book-info">
+            <p>Author: {authors} </p>
+            <p>Price: {this.checkPrice(this.props.bookData.saleInfo)}</p>
+            <p>{this.props.bookData.volumeInfo.description}</p>
+          </div>
+        </div>
+      </li>
     )
   }
 }

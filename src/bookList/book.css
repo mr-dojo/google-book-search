@@ -1,0 +1,12 @@
+.book-li {
+  list-style: none;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.book-info {
+  flex-grow: 1;
+}
