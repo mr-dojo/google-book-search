@@ -26,7 +26,7 @@ export default class Book extends Component {
           <div className="book-info">
             <p>Author: {authors} </p>
             <p>Price: {this.checkPrice(this.props.bookData.saleInfo)}</p>
-            <p>{info.description}</p>
+            <p className="book-description">{info.description}</p>
           </div>
         </div>
       </li>
