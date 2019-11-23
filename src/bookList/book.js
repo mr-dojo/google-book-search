@@ -16,16 +16,17 @@ export default class Book extends Component {
   render() {
 
     const authors = this.props.bookData.volumeInfo.authors.map(author => author)
+    const info = this.props.bookData.volumeInfo
 
     return (
       <li className="book-li">
-        <h2>{this.props.bookData.volumeInfo.title}</h2>
+        <h2>{info.title}</h2>
         <div className="book-container">
-          <img src={this.props.bookData.volumeInfo.imageLinks.thumbnail} alt={this.props.bookData.volumeInfo.title}/>
+          <img src={info.imageLinks.thumbnail} alt={info.title}/>
           <div className="book-info">
             <p>Author: {authors} </p>
             <p>Price: {this.checkPrice(this.props.bookData.saleInfo)}</p>
-            <p>{this.props.bookData.volumeInfo.description}</p>
+            <p>{info.description}</p>
           </div>
         </div>
       </li>

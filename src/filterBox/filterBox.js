@@ -6,6 +6,40 @@ export default class FilterBox extends Component {
     e.preventDefault()
     this.props.handleSearch(e.target.search.value)
   }
+
+  handleBookTypeFilter(e) {
+    const data = this.props.booksData
+    const filteredData = data.filter(book => {
+      if (e.target.value === "All") {
+        return book
+      } else if (book.volumeInfo.categories[0] === e.target.value) {
+        return book
+      } else {
+        return null
+      }
+    });
+    this.props.handleFilter(filteredData)
+  }
+
+  findPrintTypes(booksData) {
+    const printTypes = booksData.map(book => book.volumeInfo.printType)
+    const uniquePrintTypes = Array.from(new Set(printTypes))
+    return uniquePrintTypes.map((type, i) => 
+      <option key={i} value={type}>{type}</option>
+    )
+  };
+
+  findBookTypes(booksData) {
+    const bookTypeObjs = booksData.map((book) => {
+      return book.volumeInfo.categories
+      });
+    const bookTypes = bookTypeObjs.map(book => book[0])
+    const uniqueBookTypes = Array.from(new Set(bookTypes))
+    return uniqueBookTypes.map((type, i) =>
+      <option key={i} value={type}>{type}</option>
+    )
+  };
+
   render() {
     return (
       <section className="filter-box">
@@ -19,13 +53,13 @@ export default class FilterBox extends Component {
         <div className="type-filter">
           <label htmlFor="print">Print Type:</label>
           <select name="print">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
+            <option key="all" value="All">All</option>
+            {this.findPrintTypes(this.props.booksData)}
           </select>
           <label htmlFor="book">Book Type:</label>
-          <select name="Book Type:">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
+          <select onChange={e => this.handleBookTypeFilter(e)} name="Book Type:">
+            <option key="all" value="All">All</option>
+            {this.findBookTypes(this.props.booksData)}
           </select>
         </div>
       </section>

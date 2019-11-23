@@ -9,8 +9,9 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       books: [],
+      filteredBooks: [],
       showBooks: false,
-      query: 'Science'
+      query: ""
     }
   }
 
@@ -18,6 +19,10 @@ export default class App extends React.Component {
     this.setState({query},()=>{
       this.search();
     });
+  }
+
+  updateFilter = filteredBooks => {
+    this.setState({filteredBooks})
   }
 
   search = () => {
@@ -36,6 +41,7 @@ export default class App extends React.Component {
       .then(data => {
         this.setState({
           books: data.items,
+          filteredBooks: data.items,
           showBooks: true,
         });
       })
@@ -46,14 +52,10 @@ export default class App extends React.Component {
       });
   }
 
-   componentDidMount() {
-    this.search()
-  }
-
   render() {
     
-    const listOfBooks = this.state.showBooks 
-      ? <BookList booksData={this.state.books} /> : null
+    const listOfBooks = this.state.showBooks
+      ? <BookList booksData={this.state.filteredBooks} /> : null
     
     return (
       <div className="App">
@@ -62,6 +64,7 @@ export default class App extends React.Component {
         </header>
         <FilterBox 
           handleSearch={this.updateQuery}
+          handleFilter={this.updateFilter}
           booksData={this.state.books}
         />
         {listOfBooks}
