@@ -1,0 +1,16 @@
+.filter-box {
+  margin: 10px 0px;
+}
+
+.filter-bar {
+  margin: 5px 0px;
+}
+
+label {
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
+input, button, select{
+  padding: 5px;
+}

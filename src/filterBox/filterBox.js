@@ -21,6 +21,20 @@ export default class FilterBox extends Component {
     this.props.handleFilter(filteredData)
   }
 
+  handlePrintTypeFilter(e) {
+    const data = this.props.booksData
+    const filteredData = data.filter(book => {
+      if (e.target.value === "All") {
+        return book
+      } else if (book.volumeInfo.printType === e.target.value) {
+        return book
+      } else {
+        return null
+      }
+    });
+    this.props.handleFilter(filteredData)
+  }
+
   findPrintTypes(booksData) {
     const printTypes = booksData.map(book => book.volumeInfo.printType)
     const uniquePrintTypes = Array.from(new Set(printTypes))
@@ -43,21 +57,21 @@ export default class FilterBox extends Component {
   render() {
     return (
       <section className="filter-box">
-        <div className="search-bar">
+        <div>
           <form onSubmit={e => this.handleSubmit(e)}>
             <label htmlFor="search">Find Books:</label>
             <input type="text" name="search" id="search" placeholder="Search Book"></input>
             <button type="submit">Search</button>
           </form>
         </div>
-        <div className="type-filter">
-          <label htmlFor="print">Print Type:</label>
-          <select name="print">
+        <div className="filter-bar">
+          <label htmlFor="printType">Print Type:</label>
+          <select onChange={e => this.handlePrintTypeFilter(e)} name="printType">
             <option key="all" value="All">All</option>
             {this.findPrintTypes(this.props.booksData)}
           </select>
-          <label htmlFor="book">Book Type:</label>
-          <select onChange={e => this.handleBookTypeFilter(e)} name="Book Type:">
+          <label htmlFor="bookTypere">Book Type:</label>
+          <select onChange={e => this.handleBookTypeFilter(e)} name="bookType">
             <option key="all" value="All">All</option>
             {this.findBookTypes(this.props.booksData)}
           </select>
